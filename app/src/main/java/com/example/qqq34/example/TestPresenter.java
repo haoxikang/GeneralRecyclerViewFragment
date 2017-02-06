@@ -35,7 +35,7 @@ public class TestPresenter extends GeneralPresenter {
 
     @Override
     public void loadNextPageData(final int page) {
-        Log.d("dddd", page + "  ");
+        Log.d(TAG,page+" ");
         new Handler().postDelayed(new Runnable() {
 
             public void run() {
@@ -44,6 +44,7 @@ public class TestPresenter extends GeneralPresenter {
                     list.add("b" + page + "   " + i);
                 }
                 loadNextPageFinish(list);
+             //  onLoadNextError("加载下一页失败");
             }
 
         }, 2000);

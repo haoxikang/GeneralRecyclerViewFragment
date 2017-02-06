@@ -15,8 +15,7 @@ public class MainActivity extends AppCompatActivity {
 
         TestAdapter textAdapter = new TestAdapter();
         GeneralRecyclerViewFragment generalRecyclerViewFragment = new GeneralRecyclerViewFragment();
-        generalRecyclerViewFragment.initialize(new TestPresenter());
-        generalRecyclerViewFragment.setAdapter(textAdapter);
+        generalRecyclerViewFragment.initialize(new TestPresenter(),textAdapter);
 
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();

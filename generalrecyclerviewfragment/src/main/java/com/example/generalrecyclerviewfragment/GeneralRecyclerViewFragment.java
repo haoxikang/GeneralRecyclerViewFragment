@@ -67,15 +67,6 @@ public class GeneralRecyclerViewFragment extends Fragment implements GeneralCont
     }
 
 
-    @Override
-    public void setAdapter(RecyclerView.Adapter adapter) {
-        if (adapter instanceof GeneralAdapter) {
-            mAdapter = adapter;
-        } else {
-            Log.e(TAG, "The adapter must implements GeneralAdapter");
-        }
-
-    }
 
     @Override
     public void showLoadAnimation() {
@@ -133,8 +124,13 @@ public class GeneralRecyclerViewFragment extends Fragment implements GeneralCont
     }
 
 
-    public void initialize(GeneralContract.Presenter presenter) {
+    public void initialize(GeneralContract.Presenter presenter,RecyclerView.Adapter adapter) {
         presenter.setView(this);
         setPresenter(presenter);
+        if (adapter instanceof GeneralAdapter) {
+            mAdapter = adapter;
+        } else {
+            Log.e(TAG, "The adapter must implements GeneralAdapter");
+        }
     }
 }
