@@ -13,10 +13,10 @@ import java.util.List;
  * Created by qqq34 on 2017/2/4.
  */
 
-public class Presenter extends GeneralPresenter {
+public class TestPresenter extends GeneralPresenter {
 
 
-    public Presenter(GeneralAdapter generalAdapter) {
+    public TestPresenter(GeneralAdapter generalAdapter) {
         super(generalAdapter);
     }
 

@@ -8,14 +8,11 @@ import android.widget.TextView;
 
 import com.example.generalrecyclerviewfragment.GeneralAdapter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by qqq34 on 2017/2/4.
  */
 
-public class TextAdapter extends GeneralAdapter<TextAdapter.MyViewHolder,String> {
+public class TestAdapter extends GeneralAdapter<TestAdapter.MyViewHolder,String> {
 
 
 
