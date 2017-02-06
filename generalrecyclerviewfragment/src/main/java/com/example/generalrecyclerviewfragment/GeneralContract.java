@@ -44,5 +44,9 @@ public interface GeneralContract {
 
         void loadNextPageFinish(@NonNull List nextList);
 
+        void onRefreshError(String message);
+
+        void onLoadNextError(String message);
+
     }
 }

@@ -3,6 +3,7 @@ package com.example.generalrecyclerviewfragment;
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import java.util.List;
 
@@ -11,6 +12,8 @@ import java.util.List;
  */
 
 public abstract class GeneralPresenter implements GeneralContract.Presenter {
+
+    public static final String TAG = "GeneralPresenter";
 
     private int page = 1;
     protected GeneralContract.View mView;
@@ -76,4 +79,17 @@ public abstract class GeneralPresenter implements GeneralContract.Presenter {
         canLoad = false;
     }
 
+    @Override
+    public void onRefreshError(String message) {
+        canLoad = true;
+        mView.closeLoadAnimation();
+        Log.d(TAG,"refresh error:"+message);
+    }
+
+    @Override
+    public void onLoadNextError(String message ){
+        canLoad = true;
+        mView.closeLoadAnimation();
+        Log.d(TAG,"load next page  error:"+message);
+    }
 }

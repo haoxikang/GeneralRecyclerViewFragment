@@ -25,11 +25,12 @@ public class Presenter extends GeneralPresenter {
         new Handler().postDelayed(new Runnable() {
 
             public void run() {
-                List<Integer> list = new ArrayList<>();
+                List<String> list = new ArrayList<>();
                 for (int i = 0; i < 50; i++) {
-                    list.add( i);
+                    list.add("ddd"+i);
                 }
                 refreshFinish(list);
+                //    onRefreshError("加载失败");
             }
 
         }, 2000);
@@ -39,13 +40,13 @@ public class Presenter extends GeneralPresenter {
 
     @Override
     public void loadNextPageData(final int page) {
-        Log.d("dddd",page+"  ");
+        Log.d("dddd", page + "  ");
         new Handler().postDelayed(new Runnable() {
 
             public void run() {
                 List<String> list = new ArrayList<>();
                 for (int i = 0; i < 50; i++) {
-                    list.add("b"+page+"   " + i);
+                    list.add("b" + page + "   " + i);
                 }
                 loadNextPageFinish(list);
             }
