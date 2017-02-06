@@ -1,5 +1,6 @@
 package com.example.generalrecyclerviewfragment;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 
 import java.util.List;
@@ -9,26 +10,39 @@ import java.util.List;
  */
 
 public interface GeneralContract {
-    interface View  {
+    interface View {
 
         void showLoadAnimation();
 
         void closeLoadAnimation();
 
-        void loadNewDataFinish(List newList);
+        void refreshFinish(@NonNull List newList);
 
-        void loadNextDataFinish(List nextList);
+        void loadNextDataFinish(@NonNull List nextList);
+
+        void setPresenter(Presenter presenter);
     }
 
-    interface Presenter  {
+    interface Presenter {
+
+
+        void setView(View view);
 
         void onPresenterCreate();
 
-        GeneralAdapter<RecyclerView.ViewHolder> getAdapter();
+        GeneralAdapter getAdapter();
+
+        void checkAndRefreshData();
+
+        void checkAndLoadNextPageData();
 
         void refreshData();
 
-        void loadNextPageData();
+        void loadNextPageData(int page);
+
+        void refreshFinish(@NonNull List nextList);
+
+        void loadNextPageFinish(@NonNull List nextList);
 
     }
 }

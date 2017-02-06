@@ -1,6 +1,7 @@
 package com.example.qqq34.example;
 
-import android.support.v7.widget.RecyclerView;
+import android.os.Handler;
+import android.util.Log;
 
 import com.example.generalrecyclerviewfragment.GeneralAdapter;
 import com.example.generalrecyclerviewfragment.GeneralPresenter;
@@ -13,21 +14,42 @@ import java.util.List;
  */
 
 public class Presenter extends GeneralPresenter {
+
+
     public Presenter(GeneralAdapter generalAdapter) {
         super(generalAdapter);
     }
 
     @Override
     public void refreshData() {
-        List<String> list = new ArrayList<>();
-        for (int i = 0; i < 50; i++) {
-            list.add("diddi" + i);
-        }
-        mView.loadNewDataFinish(list);
+        new Handler().postDelayed(new Runnable() {
+
+            public void run() {
+                List<Integer> list = new ArrayList<>();
+                for (int i = 0; i < 50; i++) {
+                    list.add( i);
+                }
+                refreshFinish(list);
+            }
+
+        }, 2000);
+
+
     }
 
     @Override
-    public void loadNextPageData() {
+    public void loadNextPageData(final int page) {
+        Log.d("dddd",page+"  ");
+        new Handler().postDelayed(new Runnable() {
 
+            public void run() {
+                List<String> list = new ArrayList<>();
+                for (int i = 0; i < 50; i++) {
+                    list.add("b"+page+"   " + i);
+                }
+                loadNextPageFinish(list);
+            }
+
+        }, 2000);
     }
 }

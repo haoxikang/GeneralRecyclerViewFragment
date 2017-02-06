@@ -15,24 +15,9 @@ import java.util.List;
  * Created by qqq34 on 2017/2/4.
  */
 
-public class TextAdapter extends GeneralAdapter<TextAdapter.MyViewHolder> {
-    private List<String> mStrings;
+public class TextAdapter extends GeneralAdapter<TextAdapter.MyViewHolder,String> {
 
-    public TextAdapter() {
-        mStrings = new ArrayList<>();
-    }
 
-    @Override
-    protected void updateDataRefreshList(List newList) {
-        mStrings = newList;
-        notifyDataSetChanged();
-    }
-
-    @Override
-    protected void addDataAndRefreshList(List nextList) {
-        mStrings.addAll(nextList);
-        notifyDataSetChanged();
-    }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -44,12 +29,12 @@ public class TextAdapter extends GeneralAdapter<TextAdapter.MyViewHolder> {
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        holder.tv.setText(mStrings.get(position));
+        holder.tv.setText(datas.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return mStrings.size();
+        return datas.size();
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {

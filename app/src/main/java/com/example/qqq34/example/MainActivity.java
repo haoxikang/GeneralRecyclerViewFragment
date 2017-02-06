@@ -13,9 +13,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         TextAdapter textAdapter = new TextAdapter();
-        Presenter presenter = new Presenter(textAdapter);
+
         GeneralRecyclerViewFragment generalRecyclerViewFragment = new GeneralRecyclerViewFragment();
-        generalRecyclerViewFragment.attachPresenter(presenter);
+        generalRecyclerViewFragment.initialize(new Presenter(textAdapter));
+
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();
         transaction.replace(R.id.frameLayout, generalRecyclerViewFragment);

@@ -22,11 +22,12 @@ public class GeneralRecyclerViewFragment extends Fragment implements GeneralCont
 
     public static final String TAG = "GeneralRecyclerView";
 
-    private GeneralPresenter mGeneralPresenter;
-    private GeneralAdapter<RecyclerView.ViewHolder> mGeneralAdapter;
+    private GeneralContract.Presenter mGeneralPresenter;
+    private GeneralAdapter mGeneralAdapter;
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
+
 
     @Nullable
     @Override
@@ -40,7 +41,6 @@ public class GeneralRecyclerViewFragment extends Fragment implements GeneralCont
     }
 
 
-
     private void initViews(View view) {
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swiperefreshlayout);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
@@ -48,19 +48,25 @@ public class GeneralRecyclerViewFragment extends Fragment implements GeneralCont
     }
 
     private void initListeners() {
+
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (!recyclerView.canScrollVertically(1)){
+                    mGeneralPresenter.checkAndLoadNextPageData();
+                }
+            }
+        });
+
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mGeneralPresenter.refreshData();
+                mGeneralPresenter.checkAndRefreshData();
             }
         });
     }
 
-    public void attachPresenter(GeneralPresenter presenter) {
-        mGeneralPresenter = presenter;
-        mGeneralPresenter.attachView(this);
-
-    }
 
     @Override
     public void showLoadAnimation() {
@@ -74,27 +80,34 @@ public class GeneralRecyclerViewFragment extends Fragment implements GeneralCont
 
     @Override
     public void closeLoadAnimation() {
-            mSwipeRefreshLayout.setRefreshing(false);
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
-    public void loadNewDataFinish(@NonNull List newList) {
-        closeLoadAnimation();
+    public void refreshFinish(@NonNull List newList) {
+
         if (!checkParameter(newList)) return;
-        mGeneralPresenter.setPage(2);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mRecyclerView.setAdapter(mGeneralAdapter);
+        if (mRecyclerView.getLayoutManager() == null) {
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        }
+        if (mRecyclerView.getAdapter() == null) {
+            mRecyclerView.setAdapter(mGeneralAdapter);
+        }
+
         mGeneralAdapter.updateDataRefreshList(newList);
 
 
     }
 
     @Override
-    public void loadNextDataFinish(List nextList) {
-        closeLoadAnimation();
+    public void loadNextDataFinish(@NonNull List nextList) {
         if (!checkParameter(nextList)) return;
-        mGeneralPresenter.increasePage();
         mGeneralAdapter.addDataAndRefreshList(nextList);
+    }
+
+    @Override
+    public void setPresenter(GeneralContract.Presenter presenter) {
+        mGeneralPresenter = presenter;
     }
 
     private boolean checkParameter(List list) {
@@ -108,5 +121,11 @@ public class GeneralRecyclerViewFragment extends Fragment implements GeneralCont
             return false;
         }
         return true;
+    }
+
+
+    public void initialize(GeneralContract.Presenter presenter) {
+        presenter.setView(this);
+        setPresenter(presenter);
     }
 }
