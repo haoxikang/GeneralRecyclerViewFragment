@@ -7,14 +7,23 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.generalrecyclerviewfragment.GeneralAdapter;
+import com.example.generalrecyclerviewfragment.GeneralDataController;
 
 /**
  * Created by qqq34 on 2017/2/4.
  */
 
-public class TestAdapter extends GeneralAdapter<TestAdapter.MyViewHolder,String> {
+public class TestAdapter extends RecyclerView.Adapter<TestAdapter.MyViewHolder> implements GeneralAdapter {
 
+    private GeneralDataController<String> mStringGeneralDataController;
 
+    public TestAdapter() {
+        mStringGeneralDataController = new GeneralDataController<>(this);
+    }
+    @Override
+    public GeneralDataController getGeneralDataController() {
+        return mStringGeneralDataController;
+    }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -26,13 +35,15 @@ public class TestAdapter extends GeneralAdapter<TestAdapter.MyViewHolder,String>
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        holder.tv.setText(datas.get(position));
+        holder.tv.setText(mStringGeneralDataController.datas.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return datas.size();
+        return mStringGeneralDataController.datas.size();
     }
+
+
 
     class MyViewHolder extends RecyclerView.ViewHolder {
 

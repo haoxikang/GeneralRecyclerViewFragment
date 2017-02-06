@@ -3,7 +3,6 @@ package com.example.qqq34.example;
 import android.os.Handler;
 import android.util.Log;
 
-import com.example.generalrecyclerviewfragment.GeneralAdapter;
 import com.example.generalrecyclerviewfragment.GeneralPresenter;
 
 import java.util.ArrayList;
@@ -15,10 +14,6 @@ import java.util.List;
 
 public class TestPresenter extends GeneralPresenter {
 
-
-    public TestPresenter(GeneralAdapter generalAdapter) {
-        super(generalAdapter);
-    }
 
     @Override
     public void refreshData() {

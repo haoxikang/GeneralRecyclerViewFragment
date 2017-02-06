@@ -23,7 +23,7 @@ public class GeneralRecyclerViewFragment extends Fragment implements GeneralCont
     public static final String TAG = "GeneralRecyclerView";
 
     private GeneralContract.Presenter mGeneralPresenter;
-    private GeneralAdapter mGeneralAdapter;
+    private RecyclerView.Adapter mAdapter;
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
@@ -35,7 +35,6 @@ public class GeneralRecyclerViewFragment extends Fragment implements GeneralCont
         View view = inflater.inflate(R.layout.general_recyclerview_fragment_layout, container, false);
         initViews(view);
         initListeners();
-        mGeneralAdapter = mGeneralPresenter.getAdapter();
         mGeneralPresenter.onPresenterCreate();
         return view;
     }
@@ -53,7 +52,7 @@ public class GeneralRecyclerViewFragment extends Fragment implements GeneralCont
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                if (!recyclerView.canScrollVertically(1)){
+                if (!recyclerView.canScrollVertically(1)) {
                     mGeneralPresenter.checkAndLoadNextPageData();
                 }
             }
@@ -67,6 +66,16 @@ public class GeneralRecyclerViewFragment extends Fragment implements GeneralCont
         });
     }
 
+
+    @Override
+    public void setAdapter(RecyclerView.Adapter adapter) {
+        if (adapter instanceof GeneralAdapter) {
+            mAdapter = adapter;
+        } else {
+            Log.e(TAG, "The adapter must implements GeneralAdapter");
+        }
+
+    }
 
     @Override
     public void showLoadAnimation() {
@@ -91,10 +100,10 @@ public class GeneralRecyclerViewFragment extends Fragment implements GeneralCont
             mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         }
         if (mRecyclerView.getAdapter() == null) {
-            mRecyclerView.setAdapter(mGeneralAdapter);
+            mRecyclerView.setAdapter(mAdapter);
         }
 
-        mGeneralAdapter.updateDataRefreshList(newList);
+        ((GeneralAdapter) mAdapter).getGeneralDataController().updateDataRefreshList(newList);
 
 
     }
@@ -102,7 +111,7 @@ public class GeneralRecyclerViewFragment extends Fragment implements GeneralCont
     @Override
     public void loadNextDataFinish(@NonNull List nextList) {
         if (!checkParameter(nextList)) return;
-        mGeneralAdapter.addDataAndRefreshList(nextList);
+        ((GeneralAdapter) mAdapter).getGeneralDataController().addDataAndRefreshList(nextList);
     }
 
     @Override
@@ -116,8 +125,8 @@ public class GeneralRecyclerViewFragment extends Fragment implements GeneralCont
             return false;
         }
 
-        if (mGeneralAdapter == null) {
-            Log.e(TAG, "GeneralAdapter can not be null");
+        if (mAdapter == null) {
+            Log.e(TAG, "lAdapter can not be null");
             return false;
         }
         return true;

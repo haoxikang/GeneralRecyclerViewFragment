@@ -12,6 +12,8 @@ import java.util.List;
 public interface GeneralContract {
     interface View {
 
+        void setAdapter(RecyclerView.Adapter adapter);
+
         void showLoadAnimation();
 
         void closeLoadAnimation();
@@ -30,7 +32,6 @@ public interface GeneralContract {
 
         void onPresenterCreate();
 
-        GeneralAdapter getAdapter();
 
         void checkAndRefreshData();
 

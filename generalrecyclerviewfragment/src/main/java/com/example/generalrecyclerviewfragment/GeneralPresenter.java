@@ -17,7 +17,6 @@ public abstract class GeneralPresenter implements GeneralContract.Presenter {
 
     private int page = 1;
     protected GeneralContract.View mView;
-    private GeneralAdapter mGeneralAdapter;
 
     private boolean canLoad = true;
 
@@ -25,15 +24,6 @@ public abstract class GeneralPresenter implements GeneralContract.Presenter {
     @Override
     public void setView(GeneralContract.View view) {
         mView = view;
-    }
-
-    public GeneralPresenter(GeneralAdapter generalAdapter) {
-        mGeneralAdapter = generalAdapter;
-    }
-
-    @Override
-    public GeneralAdapter getAdapter() {
-        return mGeneralAdapter;
     }
 
     @Override
