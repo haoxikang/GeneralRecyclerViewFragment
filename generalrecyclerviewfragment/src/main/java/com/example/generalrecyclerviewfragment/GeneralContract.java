@@ -21,10 +21,14 @@ public interface GeneralContract {
         void loadNextDataFinish(@NonNull List nextList);
 
         void setPresenter(Presenter presenter);
+
+        void showSnackBar(String message);
+
+
+
     }
 
     interface Presenter {
-
 
         void setView(View view);
 

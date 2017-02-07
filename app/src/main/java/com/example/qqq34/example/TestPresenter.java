@@ -18,24 +18,21 @@ public class TestPresenter extends GeneralPresenter {
     @Override
     public void refreshData() {
         new Handler().postDelayed(new Runnable() {
-
             public void run() {
                 List<String> list = new ArrayList<>();
                 for (int i = 0; i < 50; i++) {
-                    list.add("ddd"+i);
+                    list.add("ddd" + i);
                 }
                 refreshFinish(list);
                 //    onRefreshError("加载失败");
             }
 
         }, 2000);
-
-
     }
 
     @Override
     public void loadNextPageData(final int page) {
-        Log.d(TAG,page+" ");
+        Log.d(TAG, page + " ");
         new Handler().postDelayed(new Runnable() {
 
             public void run() {
@@ -44,7 +41,7 @@ public class TestPresenter extends GeneralPresenter {
                     list.add("b" + page + "   " + i);
                 }
                 loadNextPageFinish(list);
-             //  onLoadNextError("加载下一页失败");
+                //  onLoadNextError("加载下一页失败");
             }
 
         }, 2000);

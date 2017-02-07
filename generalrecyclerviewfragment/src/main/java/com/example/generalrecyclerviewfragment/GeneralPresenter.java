@@ -1,5 +1,6 @@
 package com.example.generalrecyclerviewfragment;
 
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -42,7 +43,7 @@ public abstract class GeneralPresenter implements GeneralContract.Presenter {
 
     @Override
     public void onPresenterCreate() {
-        checkAndRefreshData();
+       checkAndRefreshData();
     }
 
 
@@ -68,6 +69,7 @@ public abstract class GeneralPresenter implements GeneralContract.Presenter {
         canLoad = true;
         mView.closeLoadAnimation();
         Log.e(TAG, "refresh error:" + message);
+        mView.showSnackBar(message);
     }
 
     @Override
@@ -75,10 +77,13 @@ public abstract class GeneralPresenter implements GeneralContract.Presenter {
         canLoad = true;
         mView.closeLoadAnimation();
         Log.e(TAG, "load next page  error:" + message);
+        mView.showSnackBar(message);
     }
 
     private void beforeLoad() {
         mView.showLoadAnimation();
         canLoad = false;
     }
+
+
 }
