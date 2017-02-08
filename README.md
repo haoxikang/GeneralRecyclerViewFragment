@@ -91,6 +91,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.MyViewHolder> 
 }
 ```
 Step 3.Start Fragment.
+
 第三步. 在Activity启动Fragment。
 
 ```java
@@ -104,5 +105,6 @@ Step 3.Start Fragment.
         transaction.commit();
 ```
 
-See the examples for more details
-更多用法请参考例子
+See the examples for more details.
+
+更多用法请参考例子。
