@@ -18,12 +18,12 @@ public class GeneralDataController<ListType>  {
         innerAdapter = adapter;
     }
 
-    protected void updateDataRefreshList(List newList) {
+    protected void updateDataRefreshList(List<ListType> newList) {
         datas = newList;
         innerAdapter.notifyDataSetChanged();
     }
 
-    protected void addDataAndRefreshList(List nextList) {
+    protected void addDataAndRefreshList(List<ListType>nextList) {
         datas.addAll(nextList);
       innerAdapter .notifyDataSetChanged();
     }

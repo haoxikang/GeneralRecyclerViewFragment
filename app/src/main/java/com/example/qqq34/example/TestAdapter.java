@@ -9,6 +9,8 @@ import android.widget.TextView;
 import com.example.generalrecyclerviewfragment.GeneralAdapter;
 import com.example.generalrecyclerviewfragment.GeneralDataController;
 
+import java.io.Serializable;
+
 /**
  * Created by qqq34 on 2017/2/4.
  */
@@ -53,5 +55,9 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.MyViewHolder> 
             super(view);
             tv = (TextView) view.findViewById(R.id.id_num);
         }
+    }
+    public void remove(int position){
+        mStringGeneralDataController.datas.remove(position);
+        notifyItemRemoved(position);
     }
 }

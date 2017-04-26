@@ -1,7 +1,10 @@
 package com.example.generalrecyclerviewfragment;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.view.ViewGroup;
 
 import java.util.List;
 
@@ -20,11 +23,11 @@ public interface GeneralContract {
 
         void loadNextDataFinish(@NonNull List nextList);
 
-        void setPresenter(Presenter presenter);
 
-        void showSnackBar(String message);
+        void initListeners();
 
-
+        void loadError();
+        void loadNextPageError();
 
     }
 
@@ -47,9 +50,8 @@ public interface GeneralContract {
 
         void loadNextPageFinish(@NonNull List nextList);
 
-        void onRefreshError(String message);
+        void onRefreshError();
 
-        void onLoadNextError(String message);
-
+        void onLoadNextError();
     }
 }

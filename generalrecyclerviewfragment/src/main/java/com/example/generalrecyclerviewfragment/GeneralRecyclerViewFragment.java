@@ -10,71 +10,57 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.Toast;
-
-import java.util.List;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 /**
  * Created by qqq34 on 2017/2/4.
  */
 
-public class GeneralRecyclerViewFragment extends Fragment implements GeneralContract.View {
+public abstract class GeneralRecyclerViewFragment extends BaseGeneraFragment {
 
-    public static final String TAG = "GeneralRecyclerView";
 
-    private GeneralContract.Presenter mGeneralPresenter;
-    private RecyclerView.Adapter mAdapter;
-
-    private SwipeRefreshLayout mSwipeRefreshLayout;
-    private RecyclerView mRecyclerView;
-    private RecyclerView.LayoutManager mLayoutManager;
-    private FrameLayout mFrameLayout;
-
+    protected SwipeRefreshLayout swipeRefreshLayout;
+    protected  RecyclerView recyclerView;
+    protected FrameLayout errorLayout;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.general_recyclerview_fragment_layout, container, false);
-        initViews(view);
-        initListeners();
-        mGeneralPresenter.onPresenterCreate();
-        return view;
+        swipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.swipeLayout);
+        recyclerView = (RecyclerView)view.findViewById(R.id.recycler);
+        errorLayout= (FrameLayout)view.findViewById(R.id.error_layout);
+        return  view;
     }
 
+    @Override
+    public void initListeners() {
 
-    private void initViews(View view) {
-        mFrameLayout = (FrameLayout) view.findViewById(R.id.CustomLayout);
-        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swiperefreshlayout);
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
-
-    }
-
-    private void initListeners() {
-
-        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 try {
                     if (getLayoutManagerOrientation() && !recyclerView.canScrollVertically(1)) {
-                        mGeneralPresenter.checkAndLoadNextPageData();
+                        getPresenter().checkAndLoadNextPageData();
                     } else if (!getLayoutManagerOrientation() && !recyclerView.canScrollHorizontally(1)) {
-                        mGeneralPresenter.checkAndLoadNextPageData();
+                        getPresenter().checkAndLoadNextPageData();
                     }
                 } catch (Exception e) {
-                    Log.e(TAG, e.getMessage());
                 }
             }
         });
 
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mGeneralPresenter.checkAndRefreshData();
+                getPresenter().checkAndRefreshData();
             }
         });
     }
@@ -82,91 +68,61 @@ public class GeneralRecyclerViewFragment extends Fragment implements GeneralCont
 
     @Override
     public void showLoadAnimation() {
-        mSwipeRefreshLayout.post(new Runnable() {
+        swipeRefreshLayout.post(new Runnable() {
             @Override
             public void run() {
-                mSwipeRefreshLayout.setRefreshing(true);
+                swipeRefreshLayout.setRefreshing(true);
             }
         });
     }
 
     @Override
     public void closeLoadAnimation() {
-        mSwipeRefreshLayout.setRefreshing(false);
+        swipeRefreshLayout.setRefreshing(false);
     }
 
-    @Override
-    public void refreshFinish(@NonNull List newList) {
-
-        if (!checkParameter(newList)) return;
-        if (mRecyclerView.getLayoutManager() == null) {
-            mRecyclerView.setLayoutManager(mLayoutManager);
-        }
-        if (mRecyclerView.getAdapter() == null) {
-            mRecyclerView.setAdapter(mAdapter);
-        }
-
-        ((GeneralAdapter) mAdapter).getGeneralDataController().updateDataRefreshList(newList);
-
-
-    }
-
-    @Override
-    public void loadNextDataFinish(@NonNull List nextList) {
-        if (!checkParameter(nextList)) return;
-        ((GeneralAdapter) mAdapter).getGeneralDataController().addDataAndRefreshList(nextList);
-    }
-
-    @Override
-    public void setPresenter(GeneralContract.Presenter presenter) {
-        mGeneralPresenter = presenter;
-    }
-
-    @Override
-    public void showSnackBar(String message) {
-        Snackbar.make(mSwipeRefreshLayout, message, Snackbar.LENGTH_SHORT).show();
-    }
-
-
-
-    private boolean checkParameter(List list) {
-        if (list == null) {
-            Log.e(TAG, "List can not be null");
-            return false;
-        }
-
-        if (mAdapter == null) {
-            Log.e(TAG, "Adapter can not be null");
-            return false;
-        }
-        return true;
-    }
-
-
-    public void initialize(@NonNull GeneralContract.Presenter presenter, @NonNull RecyclerView.Adapter adapter, @NonNull RecyclerView.LayoutManager layoutManager) {
-
-        if (presenter == null || adapter == null || layoutManager == null) {
-            Log.e(TAG, "The argument can not be null");
-        }
-        mLayoutManager = layoutManager;
-        presenter.setView(this);
-        setPresenter(presenter);
-        if (adapter instanceof GeneralAdapter) {
-            mAdapter = adapter;
-        } else {
-            Log.e(TAG, "The adapter must implements GeneralAdapter");
-        }
-    }
 
     private boolean getLayoutManagerOrientation() throws Exception {
-        if (mLayoutManager instanceof LinearLayoutManager) {
-            return (((LinearLayoutManager) mLayoutManager).getOrientation() == LinearLayoutManager.VERTICAL) ? true : false;
-        } else if (mLayoutManager instanceof StaggeredGridLayoutManager) {
-            return (((StaggeredGridLayoutManager) mLayoutManager).getOrientation() == StaggeredGridLayoutManager.VERTICAL) ? true : false;
+        if (getLayoutManager() instanceof LinearLayoutManager) {
+            return (((LinearLayoutManager) getLayoutManager()).getOrientation() == LinearLayoutManager.VERTICAL) ? true : false;
+        } else if (getLayoutManager() instanceof StaggeredGridLayoutManager) {
+            return (((StaggeredGridLayoutManager) getLayoutManager()).getOrientation() == StaggeredGridLayoutManager.VERTICAL) ? true : false;
         } else {
             throw new Exception("If you use the default SwipeRefreshLayout. " +
                     "You can only select one of the LinearLayoutManager, StaggeredGridLayoutManager, and GridLayoutManager.");
         }
 
+    }
+
+
+    @Override
+    public void loadError() {
+        if (errorLayout.getChildCount()==0){
+            TextView textView = new TextView(getContext());
+            textView.setText("加载失败，请点击屏幕重试");
+            FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            layoutParams.gravity = Gravity.CENTER;
+            errorLayout.addView(textView, layoutParams);
+            errorLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    getPresenter().checkAndRefreshData();
+                    errorLayout.setVisibility(View.GONE);
+                }
+            });
+        }
+        errorLayout.setVisibility(View.VISIBLE);
+
+    }
+
+    @Override
+    public void loadNextPageError() {
+        Snackbar.make(recyclerView, "加载失败", Snackbar.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public RecyclerView getRecyclerView() {
+        return recyclerView;
     }
 }
