@@ -5,7 +5,7 @@ This Fragment can automatically handle the logic of the next page by pulldown an
 Just set up the data source and adapter to start working. Support horizontal and vertical sliding. Supports LinearLayoutManager, StaggeredGridLayoutManager, and GridLayoutManage
 
 这个Fragment能够自动处理下拉刷新和上拉加载下一页的逻辑。
-只需要设置数据源和adapter就能开始工作。支持横向和竖向滑动。支持LinearLayoutManager, StaggeredGridLayoutManager, and GridLayoutManager。
+只需要设置数据源和adapter就能开始工作。支持横向和竖向滑动。支持第三方下拉刷新框架。具有高度的定制性
 
 ## Download
 Step 1. Add the JitPack repository to your build file
@@ -90,21 +90,41 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.MyViewHolder> 
 	..........your code.........
 }
 ```
-Step 3.Start Fragment.
+Step 3.Create a class that extends to the GeneralRecyclerViewFragment.
 
-第三步. 在Activity启动Fragment。
+第三步. 创建一个类，让他继承GeneralRecyclerViewFragment。
 
 ```java
-        TestAdapter textAdapter = new TestAdapter();
-        GeneralRecyclerViewFragment generalRecyclerViewFragment = new GeneralRecyclerViewFragment();
-        generalRecyclerViewFragment.initialize(new TestPresenter(),textAdapter,new LinearLayoutManager(this));
+        @NonNull
+    @Override
+    protected GeneralContract.Presenter getPresenter() {
+        if (testPresenter == null) {
+            testPresenter = new TestPresenter();
+        }
+        return testPresenter;
+    }
 
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction transaction = fm.beginTransaction();
-        transaction.replace(R.id.frameLayout, generalRecyclerViewFragment);
-        transaction.commit();
+    @NonNull
+    @Override
+    protected RecyclerView.Adapter getAdapter() {
+        if (testAdapter == null) {
+            testAdapter = new TestAdapter();
+        }
+        return testAdapter;
+    }
+
+    @NonNull
+    @Override
+    protected RecyclerView.LayoutManager getLayoutManager() {
+        if (layoutManager == null) {
+            layoutManager = new LinearLayoutManager(getContext());
+        }
+        return layoutManager;
+    }
 ```
 
 See the examples for more details.
 
-更多用法请参考例子。
+## 进阶用法：
+
+如果你想自定义下拉刷新库，或者自己处理一些错误逻辑，请继承BaseGeneraFragment 并实现其中的方法。写法可以参考GeneralRecyclerViewFragment
