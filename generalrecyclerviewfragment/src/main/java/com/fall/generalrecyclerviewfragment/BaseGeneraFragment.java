@@ -60,8 +60,12 @@ public abstract class BaseGeneraFragment extends Fragment implements GeneralCont
         if (getItemDecoration() != null) {
             recyclerView.addItemDecoration(getItemDecoration());
         }
-        recyclerView.setLayoutManager(getLayoutManager());
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        if (recyclerView.getLayoutManager()==null){
+            recyclerView.setLayoutManager(getLayoutManager());
+            recyclerView.setItemAnimator(new DefaultItemAnimator());
+        }
+
+
         getPresenter().setView(this);
         initListeners();
         getPresenter().onPresenterCreate();
