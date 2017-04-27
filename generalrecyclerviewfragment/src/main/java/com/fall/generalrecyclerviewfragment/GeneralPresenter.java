@@ -1,7 +1,6 @@
-package com.example.generalrecyclerviewfragment;
+package com.fall.generalrecyclerviewfragment;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import java.util.List;
 

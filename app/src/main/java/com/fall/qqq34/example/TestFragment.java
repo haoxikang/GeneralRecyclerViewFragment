@@ -1,11 +1,11 @@
-package com.example.qqq34.example;
+package com.fall.qqq34.example;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.example.generalrecyclerviewfragment.GeneralContract;
-import com.example.generalrecyclerviewfragment.GeneralRecyclerViewFragment;
+import com.fall.generalrecyclerviewfragment.GeneralContract;
+import com.fall.generalrecyclerviewfragment.GeneralRecyclerViewFragment;
 
 /**
  * Created by Administrator on 2017/4/26/026.

@@ -1,4 +1,4 @@
-package com.example.generalrecyclerviewfragment;
+package com.fall.generalrecyclerviewfragment;
 
 import android.support.v7.widget.RecyclerView;
 

@@ -1,4 +1,4 @@
-package com.example.generalrecyclerviewfragment;
+package com.fall.generalrecyclerviewfragment;
 
 /**
  * Created by qqq34 on 2017/2/6.

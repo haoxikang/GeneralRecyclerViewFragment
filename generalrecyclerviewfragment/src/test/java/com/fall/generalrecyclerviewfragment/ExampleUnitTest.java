@@ -1,4 +1,4 @@
-package com.example.generalrecyclerviewfragment;
+package com.fall.generalrecyclerviewfragment;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package com.example.qqq34.example;
+package com.fall.qqq34.example;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -6,10 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.generalrecyclerviewfragment.GeneralAdapter;
-import com.example.generalrecyclerviewfragment.GeneralDataController;
-
-import java.io.Serializable;
+import com.fall.generalrecyclerviewfragment.GeneralAdapter;
+import com.fall.generalrecyclerviewfragment.GeneralDataController;
 
 /**
  * Created by qqq34 on 2017/2/4.

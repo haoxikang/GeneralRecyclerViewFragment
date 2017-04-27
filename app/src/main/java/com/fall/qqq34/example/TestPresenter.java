@@ -1,9 +1,9 @@
-package com.example.qqq34.example;
+package com.fall.qqq34.example;
 
 import android.os.Handler;
 import android.util.Log;
 
-import com.example.generalrecyclerviewfragment.GeneralPresenter;
+import com.fall.generalrecyclerviewfragment.GeneralPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
