@@ -61,6 +61,11 @@ public abstract class GeneralPresenter implements GeneralContract.Presenter {
         }
     }
 
+    @Override
+    public void stopLoading() {
+        canLoad=true;
+        mView.closeLoadAnimation();
+    }
 
     @Override
     public void onRefreshError() {

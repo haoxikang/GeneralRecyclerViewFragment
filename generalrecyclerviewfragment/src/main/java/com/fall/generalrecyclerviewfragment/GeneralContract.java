@@ -49,5 +49,7 @@ public interface GeneralContract {
         void onRefreshError();
 
         void onLoadNextError();
+
+        void stopLoading();
     }
 }
