@@ -63,7 +63,7 @@ public abstract class GeneralPresenter implements GeneralContract.Presenter {
 
     @Override
     public void stopLoading() {
-        canLoad=true;
+        canLoad = true;
         mView.closeLoadAnimation();
     }
 
@@ -79,6 +79,13 @@ public abstract class GeneralPresenter implements GeneralContract.Presenter {
         canLoad = true;
         mView.closeLoadAnimation();
         mView.loadNextPageError();
+    }
+
+    @Override
+    public void onReloadError() {
+        canLoad = true;
+        mView.closeLoadAnimation();
+        mView.reLoadError();
     }
 
     private void beforeLoad() {

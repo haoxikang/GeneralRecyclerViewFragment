@@ -118,6 +118,11 @@ public abstract class GeneralRecyclerViewFragment extends BaseGeneraFragment {
     }
 
     @Override
+    public void reLoadError() {
+        Snackbar.make(recyclerView, "加载失败", Snackbar.LENGTH_SHORT).show();
+    }
+
+    @Override
     public RecyclerView getRecyclerView() {
         return recyclerView;
     }

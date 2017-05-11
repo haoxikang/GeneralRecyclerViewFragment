@@ -24,6 +24,7 @@ public interface GeneralContract {
 
         void loadError();
         void loadNextPageError();
+        void reLoadError();
 
     }
 
@@ -47,6 +48,8 @@ public interface GeneralContract {
         void loadNextPageFinish(@NonNull List nextList);
 
         void onRefreshError();
+
+        void onReloadError();
 
         void onLoadNextError();
 
