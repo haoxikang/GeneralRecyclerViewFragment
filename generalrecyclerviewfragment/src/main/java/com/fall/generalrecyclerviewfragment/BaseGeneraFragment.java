@@ -23,25 +23,6 @@ public abstract class BaseGeneraFragment extends Fragment implements GeneralCont
     private GeneralDataController generalDataController;
     public static final String TAG = "BaseGeneraFragment";
 
-//
-//    /**
-//     * 提供一个默认的初始化布局方法，在这个方法中，用代码的方式添加recyclerView和刷新组件。
-//     * 如果添加出现问题，请重写这个方法并实现自己的布局加流程。
-//     * 当重写这个方法时，getSwipeRefreshLayout()方法将会被自己覆盖掉。
-//     */
-//    @Override
-//    public View initializeLayout() {
-//        swipeRefreshLayout = getSwipeRefreshLayout();
-//
-//        recyclerView = new RecyclerView(getContext());
-//
-//        ViewGroup.LayoutParams recyclerViewlayoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-//        FrameLayout.LayoutParams swipeRefreshLayoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-//        swipeRefreshLayout.addView(recyclerView, recyclerViewlayoutParams);
-//        swipeRefreshLayout.setBackgroundColor(ContextCompat.getColor(getContext(),android.R.color.darker_gray));
-//        swipeRefreshLayout.setLayoutParams(swipeRefreshLayoutParams);
-//        return swipeRefreshLayout;
-//    }
 
 
     @Override
@@ -60,7 +41,7 @@ public abstract class BaseGeneraFragment extends Fragment implements GeneralCont
         if (getItemDecoration() != null) {
             recyclerView.addItemDecoration(getItemDecoration());
         }
-        if (recyclerView.getLayoutManager()==null){
+        if (recyclerView.getLayoutManager() == null) {
             recyclerView.setLayoutManager(getLayoutManager());
             recyclerView.setItemAnimator(new DefaultItemAnimator());
         }
@@ -69,6 +50,12 @@ public abstract class BaseGeneraFragment extends Fragment implements GeneralCont
         getPresenter().setView(this);
         initListeners();
         getPresenter().onPresenterCreate();
+    }
+
+    @Override
+    public void loadLastPageDataFinish(@NonNull List nextList) {
+        if (!checkParameter(nextList)) return;
+        generalDataController.addDataAndRefreshList(nextList);
     }
 
     @Override
@@ -115,7 +102,6 @@ public abstract class BaseGeneraFragment extends Fragment implements GeneralCont
     protected abstract GeneralContract.Presenter getPresenter();
 
 
-
     @NonNull
     protected abstract RecyclerView.Adapter getAdapter();
 
@@ -124,5 +110,5 @@ public abstract class BaseGeneraFragment extends Fragment implements GeneralCont
     protected abstract RecyclerView.LayoutManager getLayoutManager();
 
 
-  protected abstract RecyclerView getRecyclerView();
+    protected abstract RecyclerView getRecyclerView();
 }

@@ -24,8 +24,8 @@ public class TestPresenter extends GeneralPresenter {
                 for (int i = 0; i < 50; i++) {
                     list.add("ddd" + i);
                 }
-                //    refreshFinish(list);
-                   onRefreshError();
+                  refreshFinish(list);
+               //    onRefreshError();
             }
 
         }, 2000);
@@ -41,7 +41,12 @@ public class TestPresenter extends GeneralPresenter {
                 for (int i = 0; i < 50; i++) {
                     list.add("b" + page + "   " + i);
                 }
-              loadNextPageFinish(list);
+                if (page==5){
+                    loadLastPageDataFinish(list);
+                }else {
+                    loadNextPageFinish(list);
+                }
+
              //    onLoadNextError();
             }
 

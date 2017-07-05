@@ -16,7 +16,7 @@ public abstract class GeneralPresenter implements GeneralContract.Presenter {
     private GeneralContract.View mView;
 
     private boolean canLoad = true;
-
+    private boolean canLoadNext = true;
 
     @Override
     public void setView(GeneralContract.View view) {
@@ -32,7 +32,16 @@ public abstract class GeneralPresenter implements GeneralContract.Presenter {
     }
 
     @Override
+    public void loadLastPageDataFinish(@NonNull List nextList) {
+        canLoad = true;
+        canLoadNext = false;
+        mView.closeLoadAnimation();
+        mView.loadLastPageDataFinish(nextList);
+    }
+
+    @Override
     public void refreshFinish(@NonNull List nextList) {
+        canLoadNext = true;
         canLoad = true;
         mView.closeLoadAnimation();
         page = 2;
@@ -47,7 +56,7 @@ public abstract class GeneralPresenter implements GeneralContract.Presenter {
 
     @Override
     public void checkAndLoadNextPageData() {
-        if (canLoad) {
+        if (canLoad&&canLoadNext) {
             beforeLoad();
             loadNextPageData(page);
         }
