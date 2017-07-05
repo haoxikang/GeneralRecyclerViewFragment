@@ -20,7 +20,7 @@ allprojects {
  Step 2. Add the dependency
  ```groovy
 dependencies {
-	        compile 'com.github.348476129:GeneralRecyclerViewFragment:1.2.1'
+	        compile 'com.github.348476129:GeneralRecyclerViewFragment:1.2.5'
 	}
   ```
 ## How to use
