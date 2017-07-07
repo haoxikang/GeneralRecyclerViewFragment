@@ -52,11 +52,6 @@ public abstract class BaseGeneraFragment extends Fragment implements GeneralCont
         getPresenter().onPresenterCreate();
     }
 
-    @Override
-    public void loadLastPageDataFinish(@NonNull List nextList) {
-        if (!checkParameter(nextList)) return;
-        generalDataController.addDataAndRefreshList(nextList);
-    }
 
     @Override
     public void refreshFinish(@NonNull List newList) {

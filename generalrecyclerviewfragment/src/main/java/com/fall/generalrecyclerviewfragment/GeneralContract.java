@@ -1,5 +1,6 @@
 package com.fall.generalrecyclerviewfragment;
 
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 
 import java.util.List;
@@ -19,14 +20,23 @@ public interface GeneralContract {
 
         void loadNextDataFinish(@NonNull List nextList);
 
-
         void initListeners();
 
         void loadError();
-        void loadNextPageError();
-        void reLoadError();
-        void loadLastPageDataFinish(@NonNull List nextList);
+        void loadError(String s);
+        void loadError(String s,@DrawableRes int res);
 
+        void loadNextPageError();
+        void loadNextPageError(String s);
+        void loadNextPageError(String s,@DrawableRes int res);
+
+        void reLoadError();
+        void reLoadError(String s);
+        void reLoadError(String s,@DrawableRes int res);
+
+        void noDataLoad();
+        void noDataLoad(String s);
+        void noDataLoad(String s,@DrawableRes int res);
     }
 
     interface Presenter {
@@ -34,7 +44,6 @@ public interface GeneralContract {
         void setView(View view);
 
         void onPresenterCreate();
-
 
         void checkAndRefreshData();
 
@@ -51,11 +60,23 @@ public interface GeneralContract {
         void loadLastPageDataFinish(@NonNull List nextList);
 
         void onRefreshError();
+        void onRefreshError(String s);
+        void onRefreshError(String s,@DrawableRes int res);
 
         void onReloadError();
+        void onReloadError(String s);
+        void onReloadError(String s,@DrawableRes int res);
 
         void onLoadNextError();
+        void onLoadNextError(String s);
+        void onLoadNextError(String s,@DrawableRes int res);
 
         void stopLoading();
+
+        void refreshFinishNoNext(@NonNull List nextList);
+
+        void noDataLoad();
+        void noDataLoad(String s);
+        void noDataLoad(String s,@DrawableRes int res);
     }
 }

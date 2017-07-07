@@ -22,17 +22,17 @@ public abstract class GeneralRecyclerViewFragment extends BaseGeneraFragment {
 
 
     protected SwipeRefreshLayout swipeRefreshLayout;
-    protected  RecyclerView recyclerView;
+    protected RecyclerView recyclerView;
     protected FrameLayout errorLayout;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.general_recyclerview_fragment_layout, container, false);
-        swipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.swipeLayout);
-        recyclerView = (RecyclerView)view.findViewById(R.id.recycler);
-        errorLayout= (FrameLayout)view.findViewById(R.id.error_layout);
-        return  view;
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeLayout);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
+        errorLayout = (FrameLayout) view.findViewById(R.id.error_layout);
+        return view;
     }
 
     @Override
@@ -93,7 +93,7 @@ public abstract class GeneralRecyclerViewFragment extends BaseGeneraFragment {
 
     @Override
     public void loadError() {
-        if (errorLayout.getChildCount()==0){
+        if (errorLayout.getChildCount() == 0) {
             TextView textView = new TextView(getContext());
             textView.setText("加载失败，请点击屏幕重试");
             FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -112,14 +112,59 @@ public abstract class GeneralRecyclerViewFragment extends BaseGeneraFragment {
     }
 
     @Override
-    public void loadNextPageError() {
-        Snackbar.make(recyclerView, "加载失败", Snackbar.LENGTH_SHORT).show();
+    public void loadError(String s) {
 
+    }
+
+    @Override
+    public void loadError(String s, int res) {
+
+    }
+
+    @Override
+    public void loadNextPageError() {
+        loadNextPageError("加载失败");
+
+    }
+
+    @Override
+    public void loadNextPageError(String s) {
+        loadNextPageError(s, -1);
+    }
+
+    @Override
+    public void loadNextPageError(String s, int res) {
+        Snackbar.make(recyclerView, s, Snackbar.LENGTH_SHORT).show();
     }
 
     @Override
     public void reLoadError() {
         Snackbar.make(recyclerView, "加载失败", Snackbar.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void reLoadError(String s) {
+
+    }
+
+    @Override
+    public void reLoadError(String s, int res) {
+
+    }
+
+    @Override
+    public void noDataLoad() {
+
+    }
+
+    @Override
+    public void noDataLoad(String s) {
+
+    }
+
+    @Override
+    public void noDataLoad(String s, int res) {
+
     }
 
     @Override

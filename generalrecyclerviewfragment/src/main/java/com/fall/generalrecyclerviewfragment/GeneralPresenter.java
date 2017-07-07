@@ -8,7 +8,7 @@ import java.util.List;
  * Created by qqq34 on 2017/2/4.
  */
 
-public abstract class GeneralPresenter implements GeneralContract.Presenter {
+public  abstract class GeneralPresenter implements GeneralContract.Presenter {
 
     public static final String TAG = "GeneralPresenter";
 
@@ -36,7 +36,16 @@ public abstract class GeneralPresenter implements GeneralContract.Presenter {
         canLoad = true;
         canLoadNext = false;
         mView.closeLoadAnimation();
-        mView.loadLastPageDataFinish(nextList);
+        mView.loadNextDataFinish(nextList);
+    }
+
+    @Override
+    public void refreshFinishNoNext(@NonNull List nextList) {
+        canLoadNext = true;
+        canLoad = false;
+        mView.closeLoadAnimation();
+        page = 2;
+        mView.refreshFinish(nextList);
     }
 
     @Override
@@ -84,6 +93,16 @@ public abstract class GeneralPresenter implements GeneralContract.Presenter {
     }
 
     @Override
+    public void onRefreshError(String s) {
+
+    }
+
+    @Override
+    public void onRefreshError(String s, int res) {
+
+    }
+
+    @Override
     public void onLoadNextError() {
         canLoad = true;
         mView.closeLoadAnimation();
@@ -91,10 +110,30 @@ public abstract class GeneralPresenter implements GeneralContract.Presenter {
     }
 
     @Override
+    public void onLoadNextError(String s) {
+
+    }
+
+    @Override
+    public void onLoadNextError(String s, int res) {
+
+    }
+
+    @Override
     public void onReloadError() {
         canLoad = true;
         mView.closeLoadAnimation();
         mView.reLoadError();
+    }
+
+    @Override
+    public void onReloadError(String s) {
+
+    }
+
+    @Override
+    public void onReloadError(String s, int res) {
+
     }
 
     private void beforeLoad() {
