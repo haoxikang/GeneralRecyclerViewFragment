@@ -93,9 +93,21 @@ public abstract class GeneralRecyclerViewFragment extends BaseGeneraFragment {
 
     @Override
     public void loadError() {
+        loadError("加载失败请点击屏幕重试");
+
+    }
+
+    @Override
+    public void loadError(String s) {
+        loadError("加载失败请点击屏幕重试", -1);
+
+    }
+
+    @Override
+    public void loadError(String s, int res) {
         if (errorLayout.getChildCount() == 0) {
             TextView textView = new TextView(getContext());
-            textView.setText("加载失败，请点击屏幕重试");
+            textView.setText(s);
             FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             layoutParams.gravity = Gravity.CENTER;
             errorLayout.addView(textView, layoutParams);
@@ -108,17 +120,6 @@ public abstract class GeneralRecyclerViewFragment extends BaseGeneraFragment {
             });
         }
         errorLayout.setVisibility(View.VISIBLE);
-
-    }
-
-    @Override
-    public void loadError(String s) {
-
-    }
-
-    @Override
-    public void loadError(String s, int res) {
-
     }
 
     @Override
@@ -139,32 +140,32 @@ public abstract class GeneralRecyclerViewFragment extends BaseGeneraFragment {
 
     @Override
     public void reLoadError() {
-        Snackbar.make(recyclerView, "加载失败", Snackbar.LENGTH_SHORT).show();
+        reLoadError("加载失败");
     }
 
     @Override
     public void reLoadError(String s) {
-
+        reLoadError(s, -1);
     }
 
     @Override
     public void reLoadError(String s, int res) {
-
+        Snackbar.make(recyclerView, s, Snackbar.LENGTH_SHORT).show();
     }
 
     @Override
     public void noDataLoad() {
-
+        noDataLoad("数据为空");
     }
 
     @Override
     public void noDataLoad(String s) {
-
+        noDataLoad("数据为空", -1);
     }
 
     @Override
     public void noDataLoad(String s, int res) {
-
+        Snackbar.make(recyclerView, s, Snackbar.LENGTH_SHORT).show();
     }
 
     @Override

@@ -8,7 +8,7 @@ import java.util.List;
  * Created by qqq34 on 2017/2/4.
  */
 
-public  abstract class GeneralPresenter implements GeneralContract.Presenter {
+public abstract class GeneralPresenter implements GeneralContract.Presenter {
 
     public static final String TAG = "GeneralPresenter";
 
@@ -25,8 +25,7 @@ public  abstract class GeneralPresenter implements GeneralContract.Presenter {
 
     @Override
     public void loadNextPageFinish(@NonNull List nextList) {
-        canLoad = true;
-        mView.closeLoadAnimation();
+        afterLoad();
         page++;
         mView.loadNextDataFinish(nextList);
     }
@@ -51,8 +50,7 @@ public  abstract class GeneralPresenter implements GeneralContract.Presenter {
     @Override
     public void refreshFinish(@NonNull List nextList) {
         canLoadNext = true;
-        canLoad = true;
-        mView.closeLoadAnimation();
+        afterLoad();
         page = 2;
         mView.refreshFinish(nextList);
     }
@@ -65,7 +63,7 @@ public  abstract class GeneralPresenter implements GeneralContract.Presenter {
 
     @Override
     public void checkAndLoadNextPageData() {
-        if (canLoad&&canLoadNext) {
+        if (canLoad && canLoadNext) {
             beforeLoad();
             loadNextPageData(page);
         }
@@ -81,59 +79,61 @@ public  abstract class GeneralPresenter implements GeneralContract.Presenter {
 
     @Override
     public void stopLoading() {
-        canLoad = true;
-        mView.closeLoadAnimation();
+        afterLoad();
     }
 
     @Override
     public void onRefreshError() {
-        canLoad = true;
-        mView.closeLoadAnimation();
+        afterLoad();
         mView.loadError();
     }
 
     @Override
     public void onRefreshError(String s) {
-
+        afterLoad();
+        mView.loadError(s);
     }
 
     @Override
     public void onRefreshError(String s, int res) {
-
+        afterLoad();
+        mView.loadError(s, res);
     }
 
     @Override
     public void onLoadNextError() {
-        canLoad = true;
-        mView.closeLoadAnimation();
+        afterLoad();
         mView.loadNextPageError();
     }
 
     @Override
     public void onLoadNextError(String s) {
-
+        afterLoad();
+        mView.loadNextPageError(s);
     }
 
     @Override
     public void onLoadNextError(String s, int res) {
-
+        afterLoad();
+        mView.loadNextPageError(s, res);
     }
 
     @Override
     public void onReloadError() {
-        canLoad = true;
-        mView.closeLoadAnimation();
+        afterLoad();
         mView.reLoadError();
     }
 
     @Override
     public void onReloadError(String s) {
-
+        afterLoad();
+        mView.reLoadError(s);
     }
 
     @Override
     public void onReloadError(String s, int res) {
-
+        afterLoad();
+        mView.reLoadError(s, res);
     }
 
     private void beforeLoad() {
@@ -141,4 +141,32 @@ public  abstract class GeneralPresenter implements GeneralContract.Presenter {
         canLoad = false;
     }
 
+    private void afterLoad() {
+        canLoad = true;
+        mView.closeLoadAnimation();
+    }
+
+    @Override
+    public void noDataLoad() {
+        afterLoad();
+        canLoadNext = false;
+        canLoad=false;
+        mView.noDataLoad();
+    }
+
+    @Override
+    public void noDataLoad(String s) {
+        afterLoad();
+        canLoadNext = false;
+        canLoad=false;
+        mView.noDataLoad(s);
+    }
+
+    @Override
+    public void noDataLoad(String s, int res) {
+        afterLoad();
+        canLoadNext = false;
+        canLoad=false;
+        mView.noDataLoad(s, res);
+    }
 }

@@ -26,6 +26,7 @@ public class TestPresenter extends GeneralPresenter {
                 }
                   refreshFinish(list);
                //    onRefreshError();
+             //   noDataLoad();
             }
 
         }, 2000);
@@ -41,12 +42,12 @@ public class TestPresenter extends GeneralPresenter {
                 for (int i = 0; i < 50; i++) {
                     list.add("b" + page + "   " + i);
                 }
-                if (page==5){
-                    loadLastPageDataFinish(list);
-                }else {
-                    loadNextPageFinish(list);
-                }
-
+//                if (page==5){
+//                    loadLastPageDataFinish(list);
+//                }else {
+//                    loadNextPageFinish(list);
+//                }
+loadLastPageDataFinish(list);
              //    onLoadNextError();
             }
 
