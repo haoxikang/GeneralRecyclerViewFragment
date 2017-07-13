@@ -99,8 +99,13 @@ public abstract class GeneralRecyclerViewFragment extends BaseGeneraFragment {
 
     @Override
     public void loadError(String s) {
-        loadError("加载失败请点击屏幕重试", -1);
+        loadError(s, -1);
 
+    }
+
+    @Override
+    public void loadError(int res) {
+        loadError(getString(res), -1);
     }
 
     @Override
@@ -134,6 +139,11 @@ public abstract class GeneralRecyclerViewFragment extends BaseGeneraFragment {
     }
 
     @Override
+    public void loadNextPageError(int res) {
+        loadNextPageError(getString(res), -1);
+    }
+
+    @Override
     public void loadNextPageError(String s, int res) {
         Snackbar.make(recyclerView, s, Snackbar.LENGTH_SHORT).show();
     }
@@ -149,6 +159,11 @@ public abstract class GeneralRecyclerViewFragment extends BaseGeneraFragment {
     }
 
     @Override
+    public void reLoadError(int res) {
+        reLoadError(getString(res), -1);
+    }
+
+    @Override
     public void reLoadError(String s, int res) {
         Snackbar.make(recyclerView, s, Snackbar.LENGTH_SHORT).show();
     }
@@ -161,6 +176,11 @@ public abstract class GeneralRecyclerViewFragment extends BaseGeneraFragment {
     @Override
     public void noDataLoad(String s) {
         noDataLoad("数据为空", -1);
+    }
+
+    @Override
+    public void noDataLoad(int res) {
+        noDataLoad(getString(res), -1);
     }
 
     @Override

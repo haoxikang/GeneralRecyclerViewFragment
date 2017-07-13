@@ -11,7 +11,7 @@ import java.util.List;
 public abstract class GeneralPresenter implements GeneralContract.Presenter {
 
     public static final String TAG = "GeneralPresenter";
-
+    private boolean canShowError = true;
     private int page = 1;
     private GeneralContract.View mView;
 
@@ -50,6 +50,7 @@ public abstract class GeneralPresenter implements GeneralContract.Presenter {
     @Override
     public void refreshFinish(@NonNull List nextList) {
         canLoadNext = true;
+        canShowError = false;
         afterLoad();
         page = 2;
         mView.refreshFinish(nextList);
@@ -95,6 +96,12 @@ public abstract class GeneralPresenter implements GeneralContract.Presenter {
     }
 
     @Override
+    public void onRefreshError(int res) {
+        afterLoad();
+        mView.loadError(res);
+    }
+
+    @Override
     public void onRefreshError(String s, int res) {
         afterLoad();
         mView.loadError(s, res);
@@ -113,6 +120,12 @@ public abstract class GeneralPresenter implements GeneralContract.Presenter {
     }
 
     @Override
+    public void onLoadNextError(int res) {
+        afterLoad();
+        mView.loadNextPageError(res);
+    }
+
+    @Override
     public void onLoadNextError(String s, int res) {
         afterLoad();
         mView.loadNextPageError(s, res);
@@ -128,6 +141,12 @@ public abstract class GeneralPresenter implements GeneralContract.Presenter {
     public void onReloadError(String s) {
         afterLoad();
         mView.reLoadError(s);
+    }
+
+    @Override
+    public void onReloadError(int res) {
+        afterLoad();
+        mView.reLoadError(res);
     }
 
     @Override
@@ -160,6 +179,14 @@ public abstract class GeneralPresenter implements GeneralContract.Presenter {
         canLoadNext = false;
         canLoad=false;
         mView.noDataLoad(s);
+    }
+
+    @Override
+    public void noDataLoad(int res) {
+        afterLoad();
+        canLoadNext = false;
+        canLoad=false;
+        mView.noDataLoad(res);
     }
 
     @Override
