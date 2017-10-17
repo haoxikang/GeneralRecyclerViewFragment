@@ -128,6 +128,11 @@ public abstract class GeneralRecyclerViewFragment extends BaseGeneraFragment {
     }
 
     @Override
+    public void hideErrorLayout() {
+        errorLayout.setVisibility(View.GONE);
+    }
+
+    @Override
     public void loadNextPageError() {
         loadNextPageError("加载失败");
 

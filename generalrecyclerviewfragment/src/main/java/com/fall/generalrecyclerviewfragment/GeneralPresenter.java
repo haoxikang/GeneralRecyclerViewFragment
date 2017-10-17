@@ -156,6 +156,7 @@ public abstract class GeneralPresenter implements GeneralContract.Presenter {
     }
 
     private void beforeLoad() {
+        mView.hideErrorLayout();
         mView.showLoadAnimation();
         canLoad = false;
     }

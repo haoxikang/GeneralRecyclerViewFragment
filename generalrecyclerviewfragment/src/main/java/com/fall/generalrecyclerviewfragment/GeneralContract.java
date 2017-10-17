@@ -31,6 +31,8 @@ public interface GeneralContract {
 
         void loadError(String s, @DrawableRes int res);
 
+        void hideErrorLayout();
+
         void loadNextPageError();
 
         void loadNextPageError(String s);

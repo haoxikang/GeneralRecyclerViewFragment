@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/GeneralRecyclerViewFragment.iml" filepath="$PROJECT_DIR$/GeneralRecyclerViewFragment.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/GeneralRecyclerViewFragment.iml" filepath="$PROJECT_DIR$/.idea/GeneralRecyclerViewFragment.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/generalrecyclerviewfragment/generalrecyclerviewfragment.iml" filepath="$PROJECT_DIR$/generalrecyclerviewfragment/generalrecyclerviewfragment.iml" />
       <module fileurl="file://$PROJECT_DIR$/generalrecyclerviewfragment/generalrecyclerviewfragment.iml" filepath="$PROJECT_DIR$/generalrecyclerviewfragment/generalrecyclerviewfragment.iml" />
     </modules>
   </component>
